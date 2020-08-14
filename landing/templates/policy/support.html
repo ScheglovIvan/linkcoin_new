@@ -1,0 +1,42 @@
+{% extends "policy/policy_template.html" %}
+{% load static %}
+{% block content %}
+    <div class="paragraph">
+        <h2>Support</h2>
+        <p>If you have any problems or want to discuss special conditions of cooperation, then contact our technical support, which works around the clock.</p>
+        
+        <div class='support_list'>
+            <div class="support_block">
+                <img src="{% static 'landing/images/gmail_logo.png' %}">
+                <h5>Gmail</h5>
+                <p>If you want to discuss special working conditions or offer profitable cooperation, then contact the andres below</p>
+                <a href="mailto:Linkcoin.contact@Gmail.com" target="_blank"><div class="sup_btn">Contact</div></a>
+                <h6>Linkcoin.contact@Gmail.com</h6>
+            </div>
+
+            <div class="support_block">
+                <img src="{% static 'landing/images/fmessenger.png' %}">
+                <h5>Messenger</h5>
+                <p>If you have any problems, or you want to ask a question, then write on Messenger or Whats App</p>
+                <a href="https://www.facebook.com/messages/t/LinkcoinLLC" target="_blank"><div class="sup_btn">Ask a Question</div></a>
+            </div>
+
+            <div class="support_block">
+                <img src="{% static 'landing/images/whatsapp.png' %}">
+                <h5>Whats App</h5>
+                <p>If you have any problems, or you want to ask a question, then write on Whats App or Messenger</p>
+                <a href="https://wa.me/380684924570" target="_blank">
+                    <div class="sup_btn">
+                        Write to us
+                    </div>
+                </a>
+                <h6>+380684924570</h6>
+            </div>
+        </div>
+    </div>
+    <style>
+        .chat-icon-load{
+            display: none;
+        }
+    </style>
+{% endblock %}

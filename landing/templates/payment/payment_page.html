@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" style="width: 100%; height: 100%">
+    <head>
+        <meta charset="UTF-8">
+        <title>linkcoin</title>
+
+        {% load static %}
+        <link rel="shortcut icon" href="{% static 'landing/images/pros/coin.png' %}" type="image/png">
+        <link rel="stylesheet" href="{% static 'landing/css/style.css' %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i&display=swap&subset=cyrillic" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
+        <link rel="stylesheet" href="{% static 'landing/css/animate.css' %}">
+        <script src="{% static 'landing/js/wow.min.js' %}"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
+    </head>
+    <body style="width: 100%; height: 100%">
+		<div id="payment_page">
+            <div class="left_block">
+
+            </div>
+            <div class="right_block">
+
+            </div>
+            <div class="payment_content">
+                <div class="overview">
+                    <div class="overview-header" onclick="window.location = '/#prices'">
+                        <i class="fas fa-arrow-left"></i>
+                        <h6>Back</h6>
+                    </div>
+                    <div class="overview-content">
+                        <h6 class="product-name">{{ plan.name }} subscription to linkcoin</h6>
+                        {% if plan.old_price > 0 %}<h5 class="product-old_price">{{ plan.old_price }} $</h5>{% endif %}
+                        <h6 class="product-price">{{ plan.price }} $</h6>
+                        <h6  class="pre-order">Pre-order</h6>
+                        <img src="{% static 'landing/images/card.png' %}" alt="Product" class="ProductImage-image">
+                    </div>
+                    <div class="overview-footer">
+                        <h6>Copyright Linkcoin LLC</h6>
+                        <h5>© 2019-2020</h5>
+                        <i class="fas fa-lock" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="payment" id="payment_container">
+                    <form id="PayLinkcoinBalance">
+                        {% csrf_token %}
+                        <div onclick="PayLinkcoinBalance()" id="linkcoin_balance-btn" {% if user.balance < plan.price %} class="linkcoin_balance_false" {% endif %}>
+                            <div class="linkcoin_balance-container">
+                                <img src="/static/landing/images/logo1.svg" alt="">
+                                <h6>Balance</h6>
+                            </div>
+                        </div>
+                    </form>
+                    <form id="PayWithBtc">
+                        {% csrf_token %}
+                        <div id="pay_btc-btn" onclick="PayWithBtc()" >
+                            <div class="pay_btc-container">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/BTC_Logo.svg" alt="">
+                                <h6>Pay with crypto</h6>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="dividing_line-container">
+                        <hr>
+                        <p>Or pay using PayPal</p>
+                    </div>
+                    <div id="paypal-button-container" style="position: relative;">
+                        <div style="width: 100%;background: white;height: 45px;position: absolute;top: 0;z-index: 999;opacity: 0;opacity: 0.6;">
+                            <h6 style="color: rgb(0 0 0 / 0.7);position: absolute;left: 50%;top: 125%;transform: translate(-50%, -50%);width: max-content;">PayPal payment will be available soon.</h6>
+                        </div>
+                    </div>
+                    <script src="https://www.paypal.com/sdk/js?client-id=AbiyMPGlIRoOsUDQDQ9tIPtvmQpDJJH7VdnHSDcW7lQM9-0F8NvBGNAHKWOgHk27B4TsZWcA5n0UtN3-&currency=USD" data-sdk-integration-source="button-factory"></script>
+                    <script>
+                        paypal.Buttons({
+                            style: {
+                                // shape: 'rect',
+                                // color: 'gold',
+                                layout: 'horizontal',
+                                label: 'paypal',
+                                tagline: false
+                            },
+                            createOrder: function(data, actions) {
+                                return actions.order.create({
+                                    purchase_units: [{
+                                        amount: {
+                                            value: {{ plan.price }}
+                                        }
+                                    }]
+                                });
+                            },
+                            onApprove: function(data, actions) {
+                                return fetch('/payments/paypal/create/order/' + data.orderID + "/" + {{ plan.id }}, {
+                                    method: 'post'
+                                })
+                                .then(function(res) {
+                                    return res.json();
+                                }).then(function(details) {
+                                    alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                                });
+                            }
+                        }).render('#paypal-button-container');
+                    </script>
+                </div>
+            </div>
+        </div>
+            
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script>
+            function PayLinkcoinBalance(){
+                {% if user.balance >= plan.price %}
+                $("body").append('<div class="loader_background"><section><div class="sk-fading-circle"><div class="sk-circle sk-circle-1"></div><div class="sk-circle sk-circle-2"></div><div class="sk-circle sk-circle-3"></div><div class="sk-circle sk-circle-4"></div><div class="sk-circle sk-circle-5"></div><div class="sk-circle sk-circle-6"></div><div class="sk-circle sk-circle-7"></div><div class="sk-circle sk-circle-8"></div><div class="sk-circle sk-circle-9"></div><div class="sk-circle sk-circle-10"></div><div class="sk-circle sk-circle-11"></div><div class="sk-circle sk-circle-12"></div></div></section></div>');  
+                    $.ajax({
+                        url:      window.location.origin + "/profile/payment/linkcoin_balance",
+                        type:     "POST",
+                        dataType: "html",
+                        data: $("#PayLinkcoinBalance").serialize() + "&plan={{ plan.id }}",
+                        success: function(response) {
+                            url =  window.location.origin + "/profile"
+                            $(location).attr('href',url);
+                        },
+                        error: function(response) {
+                            setTimeout(function (){                                
+                                $("body").children(".loader_background").remove()
+                            }, 500);
+                        }
+                    });
+                {% endif %}
+            }
+            function PayWithBtc(){
+                // console.log($("#PayWithBtc").serialize() + "&plan={{ plan.id }}",)
+                $("body").append('<div class="loader_background"><section><div class="sk-fading-circle"><div class="sk-circle sk-circle-1"></div><div class="sk-circle sk-circle-2"></div><div class="sk-circle sk-circle-3"></div><div class="sk-circle sk-circle-4"></div><div class="sk-circle sk-circle-5"></div><div class="sk-circle sk-circle-6"></div><div class="sk-circle sk-circle-7"></div><div class="sk-circle sk-circle-8"></div><div class="sk-circle sk-circle-9"></div><div class="sk-circle sk-circle-10"></div><div class="sk-circle sk-circle-11"></div><div class="sk-circle sk-circle-12"></div></div></section></div>');  
+                $.ajax({
+                    url:      window.location.origin + "/payments/coinbase/create/order",
+                    type:     "POST",
+                    dataType: "html",
+                    data: $("#PayWithBtc").serialize() + "&plan={{ plan.id }}",
+                    success: function(response) {
+                        // window.open(response,'contacts','location,width=490,height=368,top=50%,left=50%');
+
+                        window.open(response);
+                        // $(location).attr('href',response);
+                    },
+                    error: function(response) {
+                        console.log(response.status)
+                        setTimeout(function (){                                
+                            $("body").children(".loader_background").remove()
+                        }, 500);
+                     }
+                });
+            }
+        </script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175310047-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-175310047-1');
+        </script>
+    </body>
+</html>

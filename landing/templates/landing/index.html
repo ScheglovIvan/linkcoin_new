@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>linkcoin</title>
+
+	{% load static %}
+	<meta name="format-detection" content="telephone=no">
+	<link rel="apple-touch-icon" href="{% static 'landing/images/pros/coin-color.svg' %}">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+	<link rel="shortcut icon" href="{% static 'landing/images/pros/coin-color.svg' %}" type="image/png">
+	<link rel="stylesheet" href="{% static 'landing/css/style.css' %}">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i&display=swap&subset=cyrillic" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
+	<link rel="stylesheet" href="{% static 'landing/css/animate.css' %}">
+	<script src="{% static 'landing/js/wow.min.js' %}"></script>
+	<link rel="stylesheet" href="{% static 'swiper/dist/css/swiper.min.css' %}">
+	<script>
+		new WOW().init();
+	</script>
+</head>
+<body id="body" onscroll="navHeight()">
+	<div class="main-wrapper" style="overflow: hidden;">
+		<div class="main">
+			<div id="top" class="header">
+
+				<img src="{% static 'landing/images/transparent-line.svg' %}" alt="" class="wave">
+
+				<div class="anim">
+					<img class="anim-arrow-1" src="{% static 'landing/images/anim/arrow-4.svg' %}" alt="">
+					<img class="anim-arrow-2" src="{% static 'landing/images/anim/arrow-3.svg' %}" alt="">
+					<img class="anim-arrow-3" src="{% static 'landing/images/anim/arrow-1.svg' %}" alt="">
+					<img class="anim-cloud" src="{% static 'landing/images/anim/main-cloud.svg' %}" alt="">
+					<img class="anim-laptop" src="{% static 'landing/images/anim/main-laptop.svg' %}" alt="">
+					<img class="anim-tab" src="{% static 'landing/images/anim/main-tab.svg' %}" alt="">
+					<img class="anim-phone" src="{% static 'landing/images/anim/main-phone.svg' %}" alt="">
+				</div>
+
+
+
+				<header style="box-shadow:0px 2px 7px 0px rgba(197,198,195,0.73);
+-moz-box-shadow:0px 2px 7px 0px rgba(197,198,195,0.73);" id="header">
+
+
+						<a href="#top" style="z-index: 9999" class="logo">
+							<img id="header-logo" src="{% static 'landing/images/logo-color.svg' %}" style="max-width: 164px;" alt="">
+						</a>
+
+						<ul>
+							<li><a href="#top">Home</a></li>
+							<li><a href="#prices">Price</a></li>
+							<li><a href="#training">Training</a></li>
+						</ul>
+
+						<div class="menu">
+							<div class="login-signup">
+								{% if user.is_authenticated %}
+								<div class="header__signup">
+									<button onclick="window.location.href = '/profile'" class="header__signup-btn header-btn user-authorized">
+										{{ email }}
+									</button>
+								</div>
+								<form method="post" action="/logout">
+									<div class="header__login">
+										{% csrf_token %}
+										<button style="color: white" onclick="window.location.href = '/logout'" class="header__login-btn header-btn">
+											Logout
+										</button>
+									</div>
+								</form>
+								{% else %}
+								<div class="header__signup">
+									<button onclick="window.location.href = '/register'" class="header__signup-btn header-btn">
+										Register
+									</button>
+								</div>
+								<div class="header__login">
+									<button style="color: white;" onclick="window.location.href = '/login'" class="header__login-btn header-btn">
+										Login
+									</button>
+								</div>
+								{% endif %}
+							</div>
+							<ul>
+								<li><a href="#top">Home</a></li>
+								<li><a href="#prices">Price</a></li>
+								<li><a href="#training">Training</a></li>
+								<li style="cursor: pointer;"><a onclick="window.location.href = '/policy/support'">Help</a></li>
+							</ul>
+						</div>
+
+						<div style="z-index: 9999;" class="burger-menu">
+							<span style="background: rgb(66,0,128);" id="burger-span-one"></span>
+							<span style="background: rgb(66,0,128);" id="burger-span-two"></span>
+						</div>
+
+						<div class="login-signup">
+							{% if user.is_authenticated %}
+								<div class="header__signup">
+									<button onclick="window.location.href = '/profile'" class="header__signup-btn header-btn user-authorized">
+										{{ email }}
+									</button>
+								</div>
+								<form method="post" action="/logout">
+									<div class="header__login">
+										{% csrf_token %}
+										<button style="color: rgb(66, 0, 128)" onclick="window.location.href = '/logout'" class="header__login-btn header-btn">
+											Logout
+										</button>
+									</div>
+								</form>
+							{% else %}
+								<div class="header__signup">
+									<button onclick="window.location.href = '/register'" class="header__signup-btn header-btn">
+										Register
+									</button>
+								</div>
+								<div class="header__login">
+									<button style="color: rgb(66, 0, 128);" onclick="window.location.href = '/login'" class="header__login-btn header-btn">
+										Login
+									</button>
+								</div>
+							{% endif %}
+						</div>
+					</header>
+
+				<img class="gradient-line" src="{% static 'landing/images/line.svg' %}" alt="">
+				<div class="container">
+
+
+
+					<header>
+						<a href="#top" style="z-index: 9999" class="logo">
+							<img src="{% static 'landing/images/logo-white.svg' %}" alt="" style="max-width: 164px;">
+						</a>
+
+						<div class="menu upper-menu">
+							<div class="login-signup">
+								{% if user.is_authenticated %}
+									<div class="header__signup">
+										<button onclick="window.location.href = '/profile'" class="header__signup-btn header-btn user-authorized">
+											{{ email }}
+										</button>
+									</div>
+									<form method="post" action="/logout">
+										<div class="header__login">
+											{% csrf_token %}
+											<button onclick="window.location.href = '/logout'" class="header__login-btn header-btn">
+												Logout
+											</button>
+										</div>
+									</form>
+								{% else %}
+									<div class="header__signup">
+										<button onclick="window.location.href = '/register'" class="header__signup-btn header-btn">
+											Register
+										</button>
+									</div>
+									<div class="header__login">
+										<button onclick="window.location.href = '/login'" class="header__login-btn header-btn">
+											Login
+										</button>
+									</div>
+								{% endif %}
+							</div>
+							<ul>
+								<li><a href="#top">Home</a></li>
+								<li><a href="#prices">Price</a></li>
+								<li><a href="#training">Training</a></li>
+								<li style="cursor: pointer;"><a onclick="window.location.href = '/policy/support'">Help</a></li>
+							</ul>
+						</div>
+
+						<div style="z-index: 9999" class="burger-menu starter-burger">
+							<span id="burger-span-one"></span>
+							<span id="burger-span-two"></span>
+						</div>
+
+						<div class="login-signup">
+							{% if user.is_authenticated %}
+								<div class="header__signup">
+									<button onclick="window.location.href = '/profile'" class="header__signup-btn header-btn user-authorized">
+										{{ email }}
+									</button>
+								</div>
+								<form method="post" action="/logout">
+									<div class="header__login">
+										{% csrf_token %}
+										<button onclick="window.location.href = '/logout'" class="header__login-btn header-btn">
+											Logout
+										</button>
+									</div>
+								</form>
+							{% else %}
+								<div class="header__signup">
+									<button onclick="window.location.href = '/register'" class="header__signup-btn header-btn">
+										Register
+									</button>
+								</div>
+								<div class="header__login">
+									<button onclick="window.location.href = '/login'" class="header__login-btn header-btn">
+										Login
+									</button>
+								</div>
+							{% endif %}
+						</div>
+
+					</header>
+
+					<div class="header-content">
+						<div class="header-content-title wow fadeInLeft">Make money at home!</div>
+
+						<div class="header-content-par wow fadeInLeft">
+							Attract people to thelinkcoin.com and get to 20$ of their payments for life. You can build a real business - your profit will be $10 000  per month, if you can invite a lot of people. They will bring you money every month. This is infinite earnings
+						</div>
+
+						<div class="header-paid wow fadeInLeft">
+							<div class="header-paid-content">
+								already paid over <span class="large-summ">$ {{ payout }}</span>
+							</div>
+						</div>
+
+						<a href="#prices" class="header-start-now wow fadeInLeft">
+							<button>START NOW</button>
+						</a>
+
+						<div class="header__goods-wrapper" id="training">
+							<div class="header__goods">
+								<div class="header__goods-easy">
+									<img src="{% static 'landing/images/like.svg' %}" alt="Like">
+									<span>easy</span>
+								</div>
+								<div class="header__goods-safety">
+									<img src="{% static 'landing/images/shield.svg' %}" alt="Shield">
+									<span>safety</span>
+								</div>
+								<div class="header__goods-fast">
+									<img src="{% static 'landing/images/clock.svg' %}" alt="Clock">
+									<span>fast</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="how-it-works">
+				<div class="container">
+
+					<div class="how-it-works__content">
+						<h1 class="how-it-works__title">
+							How it works?
+						</h1>
+
+						<p class="how-it-works__par">
+							Earn money by attracting new customers. Get a unique link in your personal account and share it with your friends, familiar, relatives, family.<br><br>
+							For each attracted client you will receive $20. With the first trial month for $29.99 you will go plus after 2 customers! You can easily withdraw funds to PayPal or BTC.<br><br>
+							If the client whom you brought renew his subscription, you will also receive $20. You will receive $20 from each invited customer while he renews the subscription. You can have hundreds and thousands of invited users!
+						</p>
+
+						<span class="how-it-works-span">
+							Make your passive income stable!
+						</span>
+
+					</div>
+
+					<div id="steps" class="steps-wrapper">
+						<div class="steps">
+							<div class="steps-line"></div>
+							<div class="step-1 first-step">
+								<img class="step-image wow fadeIn" src="{% static 'landing/images/cloud.svg' %}" alt="Cloud">
+								<span class="step-number">1</span>
+								<div class="step-content">
+									<span>Subscribe</span>
+									<p>Register and apply for a trial month for only $29.99</p>
+								</div>
+							</div>
+							<div class="step-2">
+								<div class="step-content">
+									<span>Get a unique link</span>
+									<p>Log in and then in your personal account get access to a unique link where you can invite customers</p>
+								</div>
+								<span class="step-number">2</span>
+								<img class="step-image wow fadeIn" src="{% static 'landing/images/drotik.svg' %}" alt="Cloud">
+							</div>
+							<div class="step-1 third-step">
+								<img class="step-image wow fadeIn" src="{% static 'landing/images/oralo.svg' %}" alt="Cloud">
+								<span class="step-number">3</span>
+								<div style="padding: 25px 0px 25px 55px;" class="step-content">
+									<span>Lead by customer link</span>
+									<p>Share the link with your friends and relatives. When the customer clicks on your link and subscribes, you will receive $20. You will receive $20 from each client with each renewal of the subscription. you can have hundreds and thousands of invited customers</p>
+								</div>
+							</div>
+							<div class="step-2">
+								<div class="step-content">
+									<span>Get money</span>
+									<p>Easily withdraw earned money to PayPal or BTC in minutes</p>
+								</div>
+								<span class="step-number">4</span>
+								<img class="step-image wow fadeIn" src="{% static 'landing/images/card.svg' %}" alt="Cloud">
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="pros">
+				<img src="{% static 'landing/images/transparent-line.svg' %}" alt="" class="wave">
+
+				<img class="gradient-line" src="{% static 'landing/images/line.svg' %}" alt="">
+				<div class="container">
+					<div class="pros__title">
+						Pros of working <br>with us:
+					</div>
+
+					<div class="pros__elements">
+						<div class="pros__el">
+							<img src="{% static 'landing/images/pros/sale-color.svg' %}" alt="">
+							<!-- <span>50% discount for the first month</span> -->
+							<span>15% discount for our clients</span>
+						</div>
+						<div class="pros__el">
+							<img src="{% static 'landing/images/pros/coin-color.svg' %}" alt="">
+							<span>$20 for each client</span>
+						</div>
+						<div class="pros__el">
+							<img src="{% static 'landing/images/pros/graph-color.svg' %}" alt="">
+							<span>Stable earnings</span>
+						</div>
+						<div class="pros__el">
+							<img src="{% static 'landing/images/pros/withdraw-color.svg' %}" alt="">
+							<span>Instant withdrawal of funds</span>
+						</div>
+						<div class="pros__el">
+							<img src="{% static 'landing/images/pros/star-color.svg' %}" alt="">
+							<span>Our service has no analogues</span>
+						</div>
+						<div class="pros__el">
+							<img src="{% static 'landing/images/pros/promotion-color.svg' %}" alt="">
+							<span>Develop marketing skills</span>
+						</div>
+						<div class="pros__el">
+							<img src="{% static 'landing/images/pros/wallet-color.svg' %}" alt="">
+							<span>Payback after your 2nd client</span>
+						</div>
+						<div class="pros__el">
+							<img src="{% static 'landing/images/pros/world-color.svg' %}" alt="">
+							<span>Service works all over the world</span>
+						</div>
+						<div class="pros__el">
+							<img src="{% static 'landing/images/pros/top-three-color.svg' %}" alt="">
+							<span>Enter the top 3 best and get a bonus</span>
+						</div>
+						<div class="pros__el">
+							<img src="{% static 'landing/images/pros/analyzing-color.svg' %}" alt="">
+							<span>Analyze your actions in your account</span>
+						</div>
+					</div>
+
+					<a href="#prices" class="pros__button">
+						<button>Get started</button>
+					</a>
+				</div>
+			</div>
+
+			{% if top_inviters|length > 0 %}
+
+				<div class="leaders">
+					<div class="container">
+						<h1 class="leaders__title">
+							Leaders of the month
+						</h1>
+						
+						<div class="leaders__blocks" id="pc_leaders">
+							{% if top_inviters|length > 1 %}
+							<div class="leader_static_block hide_leader">
+								<div class="leader_block-content" id="leader_second">
+									<div class="leader_top-content">
+										<div class="photo_rate_content">
+											<div class="leader_rate">
+												<h3>#2</h3>
+											</div>
+											<div class="leader_photo" style="background: url('{% static top_inviters.1.avatar %}') no-repeat; background-size: 100%;"></div>
+										</div>
+										<div class="leader_name-content">
+											<h3>{{ top_inviters.1.username }}</h3>
+										</div>
+									</div>
+									<div class="leader_middle-content">
+										<div class="leader-total_data">
+											<div class="leader_titel_data">Total</div>
+											<div class="leader_data_container">
+												<div class="name_data">
+													<h6>Click:</h6>
+												</div>
+												<div class="value_data">
+													<h5>{{ top_inviters.1.total_click }}</h5>
+												</div>
+											</div>
+											<div class="leader_data_container">
+												<div class="name_data">
+													<h6>Signup:</h6>
+												</div>
+												<div class="value_data">
+													<h5>{{ top_inviters.1.total_signup }}</h5>
+												</div>
+											</div>
+											<div class="leader_data_container">
+												<div class="name_data">
+													<h6>Purchase:</h6>
+												</div>
+												<div class="value_data">
+													<h5>{{ top_inviters.1.total_purchase }}</h5>
+												</div>
+											</div>
+										</div>
+										<div class="leader-last_month_data">
+											<div class="leader_titel_data">Last month</div>
+											<div class="leader_data_container">
+												<div class="name_data">
+													<h6>Click:</h6>
+												</div>
+												<div class="value_data">
+													<h5>{{ top_inviters.1.last_month_click }}</h5>
+												</div>
+											</div>
+											<div class="leader_data_container">
+												<div class="name_data">
+													<h6>Signup:</h6>
+												</div>
+												<div class="value_data">
+													<h5>{{ top_inviters.1.last_month_signup }}</h5>
+												</div>
+											</div>
+											<div class="leader_data_container">
+												<div class="name_data">
+													<h6>Purchase:</h6>
+												</div>
+												<div class="value_data">
+													<h5>{{ top_inviters.1.last_month_purchase }}</h5>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="leader_bottom-content">
+										<div class="leader_bottom-conteiner">
+											<div class="leader_earned">
+												<h6>Monthly fee:</h6>
+												<h5>${{ top_inviters.1.monthly_free }}</h5>
+											</div>
+											<div class="leader_bonus">
+												<h6>Bonus:</h6>
+												<h5>${{ top_inviters.1.bonus }}</h5>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							{% endif %}
+
+							{% if top_inviters|length > 0 %}
+							<div class="leader_static_block leader_center_block">
+								<div class="leader_block-content first_leader" id="leader_first">
+									<div class="leader_top-content">
+										<div class="photo_rate_content">
+											<div class="leader_rate">
+												<h3>#1</h3>
+											</div>
+											<div class="leader_photo" style="background: url('{% static top_inviters.0.avatar %}') no-repeat; background-size: 100%;"></div>
+										</div>
+										<div class="leader_name-content">
+											<h3>{{ top_inviters.0.username }}</h3>
+										</div>
+									</div>
+									<div class="leader_middle-content">
+										<div class="leader-total_data">
+											<div class="leader_titel_data">Total</div>
+											<div class="leader_data_container">
+												<div class="name_data">
+													<h6>Click:</h6>
+												</div>
+												<div class="value_data">
+													<h5>{{ top_inviters.0.total_click }}</h5>
+												</div>
+											</div>
+											<div class="leader_data_container">
+												<div class="name_data">
+													<h6>Signup:</h6>
+												</div>
+												<div class="value_data">
+													<h5>{{ top_inviters.0.total_signup }}</h5>
+												</div>
+											</div>
+											<div class="leader_data_container">
+												<div class="name_data">
+													<h6>Purchase:</h6>
+												</div>
+												<div class="value_data">
+													<h5>{{ top_inviters.0.total_purchase }}</h5>
+												</div>
+											</div>
+										</div>
+										<div class="leader-last_month_data">
+											<div class="leader_titel_data">Last month</div>
+											<div class="leader_data_container">
+												<div class="name_data">
+													<h6>Click:</h6>
+												</div>
+												<div class="value_data">
+													<h5>{{ top_inviters.0.last_month_click }}</h5>
+												</div>
+											</div>
+											<div class="leader_data_container">
+												<div class="name_data">
+													<h6>Signup:</h6>
+												</div>
+												<div class="value_data">
+													<h5>{{ top_inviters.0.last_month_signup }}</h5>
+												</div>
+											</div>
+											<div class="leader_data_container">
+												<div class="name_data">
+													<h6>Purchase:</h6>
+												</div>
+												<div class="value_data">
+													<h5>{{ top_inviters.0.last_month_purchase }}</h5>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="leader_bottom-content">
+										<div class="leader_bottom-conteiner">
+											<div class="leader_earned">
+												<h6>Monthly fee:</h6>
+												<h5>${{ top_inviters.0.monthly_free }}</h5>
+											</div>
+											<div class="leader_bonus">
+												<h6>Bonus:</h6>
+												<h5>${{ top_inviters.0.bonus }}</h5>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							{% endif %}
+
+							{% if top_inviters|length > 2 %}
+							<div class="leader_static_block hide_leader">
+								<div class="leader_block-content" id="leader_third">
+									<div class="leader_top-content">
+										<div class="photo_rate_content">
+											<div class="leader_rate">
+												<h3>#3</h3>
+											</div>
+											<div class="leader_photo" style="background: url('{% static top_inviters.2.avatar %}') no-repeat; background-size: 100%;"></div>
+										</div>
+										<div class="leader_name-content">
+											<h3>{{ top_inviters.2.username }}</h3>
+										</div>
+									</div>
+									<div class="leader_middle-content">
+										<div class="leader-total_data">
+											<div class="leader_titel_data">Total</div>
+											<div class="leader_data_container">
+												<div class="name_data">
+													<h6>Click:</h6>
+												</div>
+												<div class="value_data">
+													<h5>{{ top_inviters.2.total_click }}</h5>
+												</div>
+											</div>
+											<div class="leader_data_container">
+												<div class="name_data">
+													<h6>Signup:</h6>
+												</div>
+												<div class="value_data">
+													<h5>{{ top_inviters.2.total_signup }}</h5>
+												</div>
+											</div>
+											<div class="leader_data_container">
+												<div class="name_data">
+													<h6>Purchase:</h6>
+												</div>
+												<div class="value_data">
+													<h5>{{ top_inviters.2.total_purchase }}</h5>
+												</div>
+											</div>
+										</div>
+										<div class="leader-last_month_data">
+											<div class="leader_titel_data">Last month</div>
+											<div class="leader_data_container">
+												<div class="name_data">
+													<h6>Click:</h6>
+												</div>
+												<div class="value_data">
+													<h5>{{ top_inviters.2.last_month_click }}</h5>
+												</div>
+											</div>
+											<div class="leader_data_container">
+												<div class="name_data">
+													<h6>Signup:</h6>
+												</div>
+												<div class="value_data">
+													<h5>{{ top_inviters.2.last_month_signup }}</h5>
+												</div>
+											</div>
+											<div class="leader_data_container">
+												<div class="name_data">
+													<h6>Purchase:</h6>
+												</div>
+												<div class="value_data">
+													<h5>{{ top_inviters.2.last_month_purchase }}</h5>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="leader_bottom-content">
+										<div class="leader_bottom-conteiner">
+											<div class="leader_earned">
+												<h6>Monthly fee:</h6>
+												<h5>${{ top_inviters.2.monthly_free }}</h5>
+											</div>
+											<div class="leader_bonus">
+												<h6>Bonus:</h6>
+												<h5>${{ top_inviters.2.bonus }}</h5>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							{% endif %}
+						</div>
+
+						<div class="leaders__blocks" id="mb_leaders">
+							<div class="swiper-container">
+								<div class="swiper-wrapper">
+									<div class="swiper-slide">
+										{% if top_inviters|length > 1 %}
+											<div class="leader_block-content" id="leader_second">
+												<div class="leader_top-content">
+													<div class="photo_rate_content">
+														<div class="leader_rate">
+															<h3>#2</h3>
+														</div>
+														<div class="leader_photo" style="background: url('{% static top_inviters.1.avatar %}') no-repeat; background-size: 100%;"></div>
+													</div>
+													<div class="leader_name-content">
+														<h3>{{ top_inviters.1.username }}</h3>
+													</div>
+												</div>
+												<div class="leader_middle-content">
+													<div class="leader-total_data">
+														<div class="leader_titel_data">Total</div>
+														<div class="leader_data_container">
+															<div class="name_data">
+																<h6>Click:</h6>
+															</div>
+															<div class="value_data">
+																<h5>{{ top_inviters.1.total_click }}</h5>
+															</div>
+														</div>
+														<div class="leader_data_container">
+															<div class="name_data">
+																<h6>Signup:</h6>
+															</div>
+															<div class="value_data">
+																<h5>{{ top_inviters.1.total_signup }}</h5>
+															</div>
+														</div>
+														<div class="leader_data_container">
+															<div class="name_data">
+																<h6>Purchase:</h6>
+															</div>
+															<div class="value_data">
+																<h5>{{ top_inviters.1.total_purchase }}</h5>
+															</div>
+														</div>
+													</div>
+													<div class="leader-last_month_data">
+														<div class="leader_titel_data">Last month</div>
+														<div class="leader_data_container">
+															<div class="name_data">
+																<h6>Click:</h6>
+															</div>
+															<div class="value_data">
+																<h5>{{ top_inviters.1.last_month_click }}</h5>
+															</div>
+														</div>
+														<div class="leader_data_container">
+															<div class="name_data">
+																<h6>Signup:</h6>
+															</div>
+															<div class="value_data">
+																<h5>{{ top_inviters.1.last_month_signup }}</h5>
+															</div>
+														</div>
+														<div class="leader_data_container">
+															<div class="name_data">
+																<h6>Purchase:</h6>
+															</div>
+															<div class="value_data">
+																<h5>{{ top_inviters.1.last_month_purchase }}</h5>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="leader_bottom-content">
+													<div class="leader_bottom-conteiner">
+														<div class="leader_earned">
+															<h6>Monthly fee:</h6>
+															<h5>${{ top_inviters.1.monthly_free }}</h5>
+														</div>
+														<div class="leader_bonus">
+															<h6>Bonus:</h6>
+															<h5>${{ top_inviters.1.bonus }}</h5>
+														</div>
+													</div>
+												</div>
+											</div>
+										{% endif %}
+									</div>
+
+									<div class="swiper-slide">
+										{% if top_inviters|length > 0 %}
+											<div class="leader_block-content first_leader" id="leader_first">
+												<div class="leader_top-content">
+													<div class="photo_rate_content">
+														<div class="leader_rate">
+															<h3>#1</h3>
+														</div>
+														<div class="leader_photo" style="background: url('{% static top_inviters.0.avatar %}') no-repeat; background-size: 100%;"></div>
+													</div>
+													<div class="leader_name-content">
+														<h3>{{ top_inviters.0.username }}</h3>
+													</div>
+												</div>
+												<div class="leader_middle-content">
+													<div class="leader-total_data">
+														<div class="leader_titel_data">Total</div>
+														<div class="leader_data_container">
+															<div class="name_data">
+																<h6>Click:</h6>
+															</div>
+															<div class="value_data">
+																<h5>{{ top_inviters.0.total_click }}</h5>
+															</div>
+														</div>
+														<div class="leader_data_container">
+															<div class="name_data">
+																<h6>Signup:</h6>
+															</div>
+															<div class="value_data">
+																<h5>{{ top_inviters.0.total_signup }}</h5>
+															</div>
+														</div>
+														<div class="leader_data_container">
+															<div class="name_data">
+																<h6>Purchase:</h6>
+															</div>
+															<div class="value_data">
+																<h5>{{ top_inviters.0.total_purchase }}</h5>
+															</div>
+														</div>
+													</div>
+													<div class="leader-last_month_data">
+														<div class="leader_titel_data">Last month</div>
+														<div class="leader_data_container">
+															<div class="name_data">
+																<h6>Click:</h6>
+															</div>
+															<div class="value_data">
+																<h5>{{ top_inviters.0.last_month_click }}</h5>
+															</div>
+														</div>
+														<div class="leader_data_container">
+															<div class="name_data">
+																<h6>Signup:</h6>
+															</div>
+															<div class="value_data">
+																<h5>{{ top_inviters.0.last_month_signup }}</h5>
+															</div>
+														</div>
+														<div class="leader_data_container">
+															<div class="name_data">
+																<h6>Purchase:</h6>
+															</div>
+															<div class="value_data">
+																<h5>{{ top_inviters.0.last_month_purchase }}</h5>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="leader_bottom-content">
+													<div class="leader_bottom-conteiner">
+														<div class="leader_earned">
+															<h6>Monthly fee:</h6>
+															<h5>${{ top_inviters.0.monthly_free }}</h5>
+														</div>
+														<div class="leader_bonus">
+															<h6>Bonus:</h6>
+															<h5>${{ top_inviters.0.bonus }}</h5>
+														</div>
+													</div>
+												</div>
+											</div>
+										{% endif %}
+									</div>
+
+									<div class="swiper-slide">
+										{% if top_inviters|length > 2 %}
+											<div class="leader_block-content" id="leader_third">
+												<div class="leader_top-content">
+													<div class="photo_rate_content">
+														<div class="leader_rate">
+															<h3>#3</h3>
+														</div>
+														<div class="leader_photo" style="background: url('{% static top_inviters.2.avatar %}') no-repeat; background-size: 100%;"></div>
+													</div>
+													<div class="leader_name-content">
+														<h3>{{ top_inviters.2.username }}</h3>
+													</div>
+												</div>
+												<div class="leader_middle-content">
+													<div class="leader-total_data">
+														<div class="leader_titel_data">Total</div>
+														<div class="leader_data_container">
+															<div class="name_data">
+																<h6>Click:</h6>
+															</div>
+															<div class="value_data">
+																<h5>{{ top_inviters.2.total_click }}</h5>
+															</div>
+														</div>
+														<div class="leader_data_container">
+															<div class="name_data">
+																<h6>Signup:</h6>
+															</div>
+															<div class="value_data">
+																<h5>{{ top_inviters.2.total_signup }}</h5>
+															</div>
+														</div>
+														<div class="leader_data_container">
+															<div class="name_data">
+																<h6>Purchase:</h6>
+															</div>
+															<div class="value_data">
+																<h5>{{ top_inviters.2.total_purchase }}</h5>
+															</div>
+														</div>
+													</div>
+													<div class="leader-last_month_data">
+														<div class="leader_titel_data">Last month</div>
+														<div class="leader_data_container">
+															<div class="name_data">
+																<h6>Click:</h6>
+															</div>
+															<div class="value_data">
+																<h5>{{ top_inviters.2.last_month_click }}</h5>
+															</div>
+														</div>
+														<div class="leader_data_container">
+															<div class="name_data">
+																<h6>Signup:</h6>
+															</div>
+															<div class="value_data">
+																<h5>{{ top_inviters.2.last_month_signup }}</h5>
+															</div>
+														</div>
+														<div class="leader_data_container">
+															<div class="name_data">
+																<h6>Purchase:</h6>
+															</div>
+															<div class="value_data">
+																<h5>{{ top_inviters.2.last_month_purchase }}</h5>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="leader_bottom-content">
+													<div class="leader_bottom-conteiner">
+														<div class="leader_earned">
+															<h6>Monthly fee:</h6>
+															<h5>${{ top_inviters.2.monthly_free }}</h5>
+														</div>
+														<div class="leader_bonus">
+															<h6>Bonus:</h6>
+															<h5>${{ top_inviters.2.bonus }}</h5>
+														</div>
+													</div>
+												</div>
+											</div>
+										{% endif %}
+									</div>
+								</div>
+								<div class="swiper-pagination"></div>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+
+			{% endif %}
+
+			<div id="prices" class="prices">
+				<img src="{% static 'landing/images/gradient-line.svg' %}" alt="">
+				<div class="container">
+					<div class="prices__title">
+						Our Prices
+					</div>
+					<div class="price-tarifs">
+						{% for p in plan %}
+							<div class="first-tarif">
+								{% if p.id == 1 %}
+									<img style="margin-bottom: 10px;" src="{% static 'landing/images/1-month.svg' %}" alt="">
+								{% elif p.id == 2 %}
+									<img style="margin-bottom: 10px;" src="{% static 'landing/images/3-month.svg' %}" alt="">
+								{% elif p.id == 3 %}
+									<img style="margin-bottom: 10px;" src="{% static 'landing/images/year.svg' %}" alt="">
+								{% endif %}
+								<span class="month-number">
+									{{ p.name }}
+								</span>
+								{% if p.old_price > 0 %}
+
+									<div class="tarif-price__old">
+										${{ p.old_price }}
+									</div>
+
+								{% endif %}
+								<div class="tarif-price">
+									${{p.price}}
+									<!-- <span class="tarif-price__span">/mo</span> -->
+								</div>
+								<div class="tarif-btn">
+									{% if user.is_authenticated %}
+										<a onclick="window.location = '/payment/plan/{{ p.id }}'"><button>select plan</button></a>
+									{% else %}
+										<a onclick="window.location = '/register'"><button>select plan</button></a>
+									{% endif %}
+								</div>
+							</div>
+						{% endfor%}
+						<!-- <div class="first-tarif">
+							<img style="margin-bottom: 10px;" src="{% static 'landing/images/1-month.svg' %}" alt="">
+							<span class="month-number">
+								1 month
+							</span>
+							{% if plan.3.old_price > 0 %}
+
+								<div class="tarif-price__old">
+									${{ plan.3.old_price }}
+								</div>
+
+							{% endif %}
+							<div class="tarif-price">
+								${% if has_discount %} {{ plan.0.price }} {% else %} {{ plan.3.price }} {% endif %} <span class="tarif-price__span">/mo</span>
+							</div>
+							<div class="tarif-btn">
+								{% if user.is_authenticated %}
+									{% if has_discount %}
+									<a onclick="window.location = '/payment/plan/1'"><button>select plan</button></a>
+									{% else %}
+									<a onclick="window.location = '/payment/plan/4'"><button>select plan</button></a>
+									{% endif %}
+								{% else %}
+									<a onclick="window.location = '/register'"><button>select plan</button></a>
+								{% endif %}
+							</div>
+						</div>
+						<div class="second-tarif">
+							<img src="{% static 'landing/images/3-month.svg' %}" alt="">
+							<span class="month-number">
+								3 month
+							</span>
+							<div class="tarif-price">
+								${{ plan.1.price }} <span class="tarif-price__span">/mo</span>
+							</div>
+							<div class="tarif-btn">
+								{% if user.is_authenticated %}
+									<a onclick="window.location = '/payment/plan/2'"><button>select plan</button></a>
+								{% else %}
+									<a onclick="window.location = '/register'"><button>select plan</button></a>
+								{% endif %}
+							</div>
+						</div>
+						<div class="third-tarif">
+							<img style="margin-bottom: 10px;" src="{% static 'landing/images/year.svg' %}" alt="">
+							<span class="month-number">
+								1 year
+							</span>
+							<div class="tarif-price">
+								${{ plan.2.price }} <span class="tarif-price__span">/mo</span>
+							</div>
+							<div class="tarif-btn">
+								{% if user.is_authenticated %}
+									<a onclick="window.location = '/payment/plan/3'"><button>select plan</button></a>
+								{% else %}
+									<a onclick="window.location = '/register'"><button>select plan</button></a>
+								{% endif %}
+							</div>
+						</div> -->
+
+					</div>
+				</div>
+			</div>
+
+			<div class="payment_background_container">
+
+			</div>
+
+			<div class="footer">
+				<div class="container">
+					{% include "base/footer.html" %}
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<script src="https://kit.fontawesome.com/6beca43afb.js" crossorigin="anonymous"></script>
+	<div class="chat-icon-load">
+		<div class="close-chat" onclick="closeChat()">
+			<i class="fas fa-times" id="close_settings" aria-hidden="true"></i>
+		</div>
+		<a href="policy/support" target="_blank">
+			<div class="chat-wrap">
+				<div class="outer-wrap-icon"></div>
+				<div class="inner-wrap-icon"></div>
+			</div>
+		</a>
+	</div>
+	<script>
+		function closeChat(){
+			$(".chat-icon-load").remove()
+		}
+	</script>
+
+	<script src="{% static 'swiper/dist/js/swiper.min.js' %}"></script>
+	<script>
+		var swiper = new Swiper('.swiper-container', {
+			initialSlide: 1,
+			spaceBetween: 30,
+			pagination: {
+				el: '.swiper-pagination',
+				clickable: true,
+				threshold: 2,
+			},
+		});
+	  </script>
+
+	<!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> -->
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+
+	<script src="{% static 'landing/js/script.js' %}"></script>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-175310047-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-175310047-1');
+	</script>
+
+	</body>
+</html>

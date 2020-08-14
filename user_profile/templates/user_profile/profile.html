@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>linkcoin</title>
+
+	  {% load static %}
+	  <meta name="format-detection" content="telephone=no">
+	<link rel="apple-touch-icon" href="{% static 'landing/images/pros/coin-color.svg' %}">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="viewport" content="width=device-width, initial-scale=0.85, maximum-scale=0.85, user-scalable=0">
+
+	<link rel="shortcut icon" href="{% static 'landing/images/pros/coin.png' %}" type="image/png">
+	<link rel="stylesheet" href="{% static 'landing/css/style.css' %}">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i&display=swap&subset=cyrillic" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
+	<script src="https://kit.fontawesome.com/6beca43afb.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="{% static 'landing/css/animate.css' %}">
+
+	<script
+	src="https://code.jquery.com/jquery-3.4.1.min.js"
+	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+	crossorigin="anonymous"></script>
+
+	<script src="{% static 'user_profile/js/jquery.easypiechart.js' %}"></script>
+
+	<script src="{% static 'landing/js/wow.min.js' %}"></script>
+
+	<script>
+		new WOW().init();
+	</script>
+
+</head>
+<body id="body" class="profile_page">
+
+	<header id="header" class="profile__header" style="display: flex; opacity: 1; top: 0; position: static; width: 100%; background: #ccc; z-index: 999999; background: #fff; color: #000 !important;">
+
+
+		<a href="/" style="z-index: 9999" class="logo">
+			<img id="header-logo" src="{% static 'landing/images/logo-color.svg' %}" style="max-width: 164px;" alt="">
+		</a>
+
+		<div class="menu" >
+			<div class="login-signup">
+				<div class="header__signup">
+					<button class="header__signup-btn header-btn">
+						{{ email }}
+					</button>
+				</div>
+				<div class="header__login">
+					<button onclick="window.location.href = '/logout'" class="header__login-btn header-btn">
+						Logout
+					</button>
+				</div>
+			</div>
+			<ul>
+				<li><a href="/#top">Home</a></li>
+				<li><a href="/#prices">Price</a></li>
+				<li><a href="/#training">Training</a></li>
+				<li><a href="/policy/support">Help</a></li>
+			</ul>
+		</div>
+
+		<div style="z-index: 99999999;" class="burger-menu">
+			<span style="background: rgb(66,0,128);" id="burger-span-one"></span>
+			<span style="background: rgb(66,0,128);" id="burger-span-two"></span>
+		</div>
+
+		<div class="logined-user">
+			<span>Hello, <span class="logined-user-name">{{ user.email }}</span> </span>
+			<div class="logout-btn" onclick="window.location.href = '/logout'">[ logout ]</div>
+		</div>
+	</header>
+
+	<div id="profile">
+		<div class="container">
+			<div class="profile-content">
+				<div class="upper-profile-content" id="profile_mob_page">
+					<div id="profile_mob_page_link"></div>
+					<div class="profile__user-data">
+						<div class="profile__title">
+							<span>Profile</span>
+							<i class="fas fa-cog"></i>
+						</div>
+						<div class="profile__user-data-content">
+							<div class="profile__logo">
+								<img src="{{ avatar_url }}" alt="">
+								<span class="profile__number">#{{ rank }}</span>
+							</div>
+							<div class="profile__data">
+								<div class="profile__data-header">
+									<div class="profile__data-header-item">
+										<h6 class="profile__data-value">{{ subscriber }}</h6>
+										<h6 class="profile__data-name">Subscriber</h6>
+									</div>
+									<div class="profile__data-header-item">
+										<h6 class="profile__data-value">$ {{ total_earned }}</h6>
+										<h6 class="profile__data-name">Total earned</h6>
+									</div>
+								</div>
+								<div class="profile__data-wrapper">
+									<div class="profile__data-email-conteiner">
+										<input value="{{ email }}" id="profile_data_email" disabled/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="profile__balance" style="display: none; max-height: 150px;">
+						<div class="profile__title">
+							<span>Your Balance <span class="amount-of-money">${{ user.balance }}0</span></span>
+						</div>
+						<div class="withdraw">
+							<form id="payout">
+								{% csrf_token %}
+								<input class="withdraw-button" type="button" value="Withdraw money">
+							</form>
+						</div>
+					</div>
+					<div class="profile-referal">
+						<div class="profile-referal-content" id="invite-content">
+							<div class="profile__title">
+								<span>Referal Link</span>
+							</div>
+							<div class="referal-input-conteiner">
+								<input class="referal-input" id="referal_link" value="{{ current_site.domain }}?ref={{ ref_links.last  }}" disabled/>
+								<i class="fas fa-link"></i>
+							</div>
+							{% if sub_data.active %}
+								<h6 class="referal_banner-title">Use our banner ads to promote your referral link.</h6>
+								<div class="referal_banner-container">
+									<a href="{% static 'landing/images/facebook.png' %}" target="_blank">
+										<img src="{% static 'landing/images/profile/facebook.png' %}" alt="Ads baner for facebook">
+									</a>
+									<a href="{% static 'landing/images/instagram.png' %}" target="_blank">
+										<img src="{% static 'landing/images/profile/instagram.png' %}" alt="Ads baner for instagram">
+									</a>
+								</div>
+							{% else %}
+								<div class="referal_banner_error_sub_invalid">
+									<i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+									<h6>
+										The subscription is not valid.
+										In order to receive money for invited
+										users, renew your subscription
+									</h6>
+								</div>
+							{% endif %}
+						</div>
+						</div>
+						<div class="profile__subscription">
+							<div class="profile__title">
+								<span>Subscrpition: <span class="profile__subscription-status">{% if sub_data.active %} active {% else %} inactive {% endif %}</span></span>
+							</div>
+							<div class="profile__subscription-content">
+								<ul>
+								  <li class="chart subs-days-chart" data-percent=""><span>{{ sub_data.days }}</span><p>days</p></li>
+								  <li class="chart subs-hours-chart" data-percent=""><span>{{ sub_data.hours }}</span><p>hours</p></li>
+								  <li class="chart subs-minutes-chart" data-percent=""><span>{{ sub_data.minutes }}</span><p>minutes</p></li>
+								</ul>
+								<div>
+									<button class="profile__subscription-btn" onclick="window.location = '/#prices'">Renew subscription</button>
+								</div>
+							</div>
+					</div>
+				</div>
+				<div class="lower-profile-content">
+					<div id="main_chart_mob_page_link"></div>
+					<div id="main_chart_mob_page">
+						<div class="profile__graph">
+							<div class="profile__dates">
+								<div class="profile__1-month profile__dates-active profile__tab" data-period="1">
+									1 month
+								</div>
+								<div class="profile__3-month profile__tab" data-period="3">
+									3 month
+								</div>
+								<div class="profile__6-month profile__tab" data-period="6">
+									6 month
+								</div>
+								<div class="profile__all-time profile__tab" data-period="99999">
+									all time
+								</div>
+							</div>
+
+							<div class="profile__dates-content">
+								<div class="profile__dates-graphs">
+									<div style="position: relative;" class="profile__1-month-content profile__tabContent">
+										<div id="chart">
+										</div>
+									</div>
+									<div class="profile__3-month-content profile__tabContent">
+										<div id="chart">
+										</div>
+									</div>
+									<div class="profile__6-month-content profile__tabContent">
+										<div id="chart">
+										</div>
+									</div>
+									<div class="profile__all-time-content profile__tabContent">
+										<div id="chart">
+										</div>
+									</div>
+								</div>
+
+								<div class="profile__dates-stats">
+									<div class="profile__dates-stats-circles">
+										<ul>
+										<li class="chart2 blue-chart clicks-number" data-percent="0"><span>0</span><p>clicks</p></li>
+										<li class="chart2 orange-chart purchase-number" data-percent="0"><span>0</span><p>purchase</p></li>
+										<li class="chart2 red-chart sign-up-number" data-percent="0"><span>0</span><p>sign up</p></li>
+										</ul>
+									</div>
+									<div class="profile__dates-stats-devices">
+										<div>
+											<img src="{% static 'landing/images/profile/desktop.png' %}" alt="">
+											<span class="desktop__users">
+												0
+											</span>
+											<p>from desktop<br> devices</p>
+										</div>
+										<div>
+											<img src="{% static 'landing/images/profile/tab.png' %}" alt="">
+											<span class="tablet__users">
+												0
+											</span>
+											<p>from tablet<br> devices</p>
+										</div>
+										<div>
+											<img src="{% static 'landing/images/profile/mob.png' %}" alt="">
+											<span class="mobile__users">
+												0
+											</span>
+											<p>from mobile<br> devices</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="profile__balance-and-stats">
+						<div class="profile__balance">
+							<div class="profile__title">
+								<span>Your Balance <span class="amount-of-money">${{ user.balance }}0</span></span>
+							</div>
+							<div class="withdraw">
+								<form id="payout">
+									{% csrf_token %}
+									<input class="withdraw-button" type="button" value="Withdraw money">
+								</form>
+							</div>
+						</div>
+						<div id="daily_chart_mob_page">
+							<div id="daily_chart_mob_page_link"></div>
+							<div class="profile__stats">
+								<div class="profile__weekly-stats">
+									<div class="profile__title">
+										<span>Weekly Stats</span>
+									</div>
+									<div class="week-bars">
+										<div class="mon-bars-stat day-bar-stat {{ today_bar.mon }}" data-date="{{ btn_date.mon }}">
+
+											<!-- Значения выводить в атрибут data-number -->
+
+											<div class="bars">
+												<div data-number="32" class="click-bar bar mon-click-bar" style="height: 30px;"></div> <!-- Количество кликов в понидельник записывать в атрибут data-number -->
+												<div data-number="12" class="signup-bar bar mon-signup-bar" style="height: 36px;"></div>
+												<div data-number="31" class="purchase-bar bar mon-purchase-bar" style="height: 33px;"></div>
+											</div>
+											<span>Mon</span>
+										</div>
+
+										<div class="tue-bars-stat day-bar-stat {{ today_bar.tue }}" data-date="{{ btn_date.tue }}">
+											
+											<div class="bars" >
+												<div data-number="21" class="click-bar tue-click-bar" style="height: 36px;"></div>
+												<div data-number="7" class="signup-bar tue-signup-bar" style="height: 30px;"></div>
+												<div data-number="17" class="purchase-bar tue-purchase-bar" style="height: 33px;"></div>
+											</div>
+											<span>Tue</span>
+										</div>
+
+										<div class="wed-bars-stat day-bar-stat {{ today_bar.wed }}" data-date="{{ btn_date.wed }}">
+											<div class="bars">
+												<div data-number="13" class="click-bar wed-click-bar" style="height: 30px;"></div>
+												<div data-number="14" class="signup-bar wed-signup-bar" style="height: 33px;"></div>
+												<div data-number="32" class="purchase-bar wed-purchase-bar" style="height: 36px;"></div>
+											</div>
+											<span>Wed</span>
+										</div>
+
+										<div class="thu-bars-stat day-bar-stat {{ today_bar.thu }}" data-date="{{ btn_date.thu }}">
+											<div class="bars">
+												<div data-number="31" class="click-bar thu-click-bar" style="height: 33px;"></div>
+												<div data-number="25" class="signup-bar thu-signup-bar" style="height: 30px;"></div>
+												<div data-number="28" class="purchase-bar thu-purchase-bar" style="height: 36px;"></div>
+											</div>
+											<span>Thu</span>
+										</div>
+
+										<div class="fri-bars-stat day-bar-stat {{ today_bar.fri }}" data-date="{{ btn_date.fri }}">
+											<div class="bars">
+												<div data-number="14" class="click-bar fri-click-bar" style="height: 30px;"></div>
+												<div data-number="23" class="signup-bar fri-signup-bar" style="height: 36px;"></div>
+												<div data-number="34" class="purchase-bar fri-purchase-bar" style="height: 33px;"></div>
+											</div>
+											<span>Fri</span>
+										</div>
+
+										<div class="sat-bars-stat day-bar-stat {{ today_bar.sat }}" data-date="{{ btn_date.sat }}">
+											<div class="bars">
+												<div data-number="31" class="click-bar sat-click-bar" style="height: 36px;"></div>
+												<div data-number="26" class="signup-bar sat-signup-bar" style="height: 33px;"></div>
+												<div data-number="20" class="purchase-bar sat-purchase-bar" style="height: 30px;"></div>
+											</div>
+											<span>Sat</span>
+										</div>
+
+										<div class="sun-bars-stat day-bar-stat {{ today_bar.sun }}" data-date="{{ btn_date.sun }}">
+											<div class="bars">
+												<div class="click-bar sun-click-bar" style="height: 33px;"></div>
+												<div class="signup-bar sun-signup-bar" style="height: 36px;"></div>
+												<div class="purchase-bar sun-purchase-bar" style="height: 30px;"></div>
+											</div>
+											<span>Sun</span>
+										</div>
+									</div>
+									<div class="small-charts-text">
+										<div class="chart-small-text">
+											<span class="small-click-number">0</span>
+											<p>click</p>
+										</div>
+										<div class="chart-small-text">
+											<span class="small-signup-number">0</span>
+											<p>signup</p>
+										</div>
+										<div class="chart-small-text">
+											<span class="small-purchase-number">0</span>
+											<p>purchase</p>
+										</div>
+									</div>
+									<div class="small-charts">
+										<div class="small-carts-upper-block"></div>
+										<div id="chart-small-1">
+
+										</div>
+										<div id="chart-small-2">
+
+										</div>
+										<div id="chart-small-3">
+
+										</div>
+									</div>
+								</div>
+								<div class="profile__traffic">
+									<div class="profile__title">
+										<span>Traffic</span>
+									</div>
+									<div class="profile__traffic-upper-wrapper">
+
+										<!-- Невидимый блок поверх, что-бы создать градиент -->
+										<!-- <div class="profile__traffic-upper upper-top"></div> -->
+
+										<div class="profile__traffic-content">
+											<!-- Трафик -->
+										</div>
+										<!-- Невидимый блок поверх, что-бы создать градиент -->
+										<div class="profile__traffic-upper upper-bottom"></div>
+									</div>
+									<div class="profile__traffic-meanings">
+										<ul>
+											<li class="circle purple-circle">click</li>
+											<li class="circle red-circle">sign up</li>
+											<li class="circle yellow-circle">purchase</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="overlay">
+		<div class='modal payment-method-modal' id='settings_modal'>
+			<div class='content'>
+				<div class="modal-header">
+					<div class="modal-title">
+						<h3>Settings</h3>
+						<i class="fas fa-times" id="close_settings" aria-hidden="true"></i>
+					</div>
+				</div>
+				<div class="modal-wrapper">
+
+					<div class="modal_payment-method" id="ref_link_settings">
+						<div class="payment-method_header" data-height="{{ height_ref_link_settings }}px">
+							<i class="fas fa-link"></i>
+							<div class="payment_method-title">
+								<h6>Referal Link</h6>
+							</div>
+							<div class="angle-up"></div>
+						</div>
+						<div class="payment-method-form-container">
+							<div class="payout_method_list">
+								{% for ref_link in ref_links %}
+								<div class="payout_method_item" style='border: none; height: min-content; padding: 0; margin-top: 20px; border-radius: 3px 0 0 3px;'>
+									<div class="payout_method_content_inline">
+										<div class="payout_method_item_content" style="width: 100%; margin: 0;">
+											<div class="ref_link_content">
+												<input class="ref_link_input" value="https://{{ current_site.domain }}?ref={{ ref_link }}" disabled>
+												<div class="ref_link_copy_continer">
+													<i class="far fa-clone"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								{% endfor %}
+							</div>
+							<div class="remove_payout_method_info" style="height: 0;padding: 0;margin: 0;">
+								<i class="fas fa-exclamation-triangle"></i>
+								<!-- <h5>Removing means you cannot use this payout method to receive funds</h5> -->
+								<h5 style="max-width: none;"></h5>
+							</div>
+							<form class="add_payout_method_form" id="create_ref_link">
+								<div class="add_payout_method_header">
+									<h3>+ New referal link</h3>
+								</div>
+								<div class="form-inline">
+									<div class="form-row">
+										<input type="text" id="ref_link_input" name="ref_link" required/>
+										<label for="ref_link_input">Referal Link</label>
+									</div>
+								</div>	
+								<div class="form-inline" style="width: 50%;">
+									{% csrf_token %}
+									<input type="button" class="modal-form-btn done-btn" id="create_ref_link_btn" value="Create" />
+									<div class="modal-form-btn cancel-btn clear_form">Cancel</div>
+								</div>
+							</form>
+						</div>
+					</div>
+
+
+					<div class="modal_payment-method" id="payout_method_settings">
+						<div class="payment-method_header" data-height="{{ payout_method_window_height }}">
+							<i class="fas fa-university"></i>
+							<div class="payment_method-title">
+								<h6>Payout method</h6>
+							</div>
+							<div class="angle-up"></div>
+						</div>
+						<div class="payment-method-form-container">
+							<form action="" method="POST">
+
+							</form>
+							<div class="payout_method_list">
+								{% for payout_method in payout_methods %}
+								<div class="payout_method_item">
+									<div class="payout_method_content_inline">
+										<div class="payout_method_item_logo">
+											{% if payout_method.name == "PayPal" %}
+												<img src="{% static 'landing/images/profile/paypal_logo.png' %}">
+											{% elif payout_method.name == "Venmo" %}
+												<img src="{% static 'landing/images/profile/venmo_logo.png' %}">
+											{% elif payout_method.name == "BTC" %}
+												<img src="{% static 'landing/images/profile/BTC_Logo.svg' %}">
+											{% endif%}
+										</div>
+										<div class="payout_method_item_content">
+											<h3 class="payout_method_title">
+												{{ payout_method.name }}
+											</h3>
+											<h5 class="payout_method_data">{{ payout_method.recipient }}</h5>
+											<div class="payout_method_footer">
+												{% if payout_method.default %}
+													<h6 class="payout_method_preferred">PREFERRED</h6>
+													<h6 class="payout_method_remove" style="padding: 5px;">Remove</h6>
+												{% else %}
+													<h6 class="payout_method_available">Available</h6>
+													<h6 class="payout_method_remove">Remove</h6>
+												{% endif%}
+											</div>
+										</div>
+									</div>
+									<div class="remove_payout_method_info">
+										<i class="fas fa-exclamation-triangle"></i>
+										<h5>Removing means you cannot use this payout method to receive funds</h5>
+									</div>
+									<form method="POST">
+										<div class="form-inline">
+											{% csrf_token %}
+											<input type="hidden" name="method" value="{{ payout_method.name }}"/>
+											<input type="hidden" name="recipient" value="{{ payout_method.recipient }}"/>
+											<input type="button" class="modal-form-btn done-btn del_payment_method" value="Remove" />
+											<div class="modal-form-btn cancel-btn close_payment_method_remove">Cancel</div>
+										</div>
+									</form>
+								</div>
+								{% endfor %}
+							</div>
+							<form action="" method="POST" class="add_payout_method_form" id="add_payout_method">
+								<div class="add_payout_method_header">
+									<h3>+ Add a payout method</h3>
+								</div>
+								<div class="remove_payout_method_info" style="opacity: 1!important;background: rgb(192 192 192 / 0.3);color: rgb(0 0 0 / 0.3);">
+									<i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+									<h5 style="max-width: none;color: rgb(0 0 0 / 0.57);">PayPal and Venmo payouts are not yet available, but will be available soon. <a href="/policy/questions" style="color: #0c77bd;">Learn more</a></h5>
+								</div>
+								<div class="form-inline">
+									<!-- <div class="payout_method_container" data-name="Email or phone"> 
+										<input type="radio" name="payout_method" id="method_paypal" value="PayPal" checked>
+										<label for="method_paypal">
+											<img class="payment_method_logo" src="{% static 'landing/images/profile/paypal.svg' %}">
+										</label>
+									</div>
+									<div class="payout_method_container" data-name="Email or phone">
+										<input type="radio" name="payout_method" id="method_venmo" value="Venmo">
+										<label for="method_venmo">
+											<img class="payment_method_logo venmo_logo" src="{% static 'landing/images/profile/venmo.svg' %}">
+										</label>
+									</div> -->
+									<div class="payout_method_container" data-name="Btc address">
+										<input type="radio" name="payout_method" id="method_btc" value="BTC" checked>
+										<label for="method_btc">
+											<img class="payment_method_logo" src="{% static 'landing/images/profile/btc_full_logo.png' %}">
+										</label>
+									</div>
+									<div class="payout_method_container" style="opacity: 0.5; cursor: default;"> 
+										<input type="radio" name="payout_method" value="PayPal" disabled>
+										<label for="method_paypal">
+											<img class="payment_method_logo" src="{% static 'landing/images/profile/paypal.svg' %}" style="cursor: default;">
+										</label>
+									</div>
+									<div class="payout_method_container" style="opacity: 0.5; cursor: default;">
+										<input type="radio" name="payout_method" value="Venmo" disabled>
+										<label for="method_venmo">
+											<img class="payment_method_logo venmo_logo" src="{% static 'landing/images/profile/venmo.svg' %}" style="cursor: default;">
+										</label>
+									</div>
+								</div>
+								<div class="form-inline">
+									<div class="form-row">
+										<input type="text" id="recipient" name="recipient" required/>
+										<!-- <label for="recipient">Email or phone</label> -->
+										<label for="recipient">Btc address</label>
+									</div>
+									<div class="form-row">
+										<input type="text" id="confirm_recipient" name="confirm_recipient" required />
+										<label for="confirm_recipient">Confirm data</label>
+									</div>
+								</div>	
+								<div class="form-inline">
+									{% csrf_token %}
+									<input type="button" class="modal-form-btn done-btn add_payment_method-btn" value="Add" />
+									<div class="modal-form-btn cancel-btn clear_form">Cancel</div>
+								</div>
+							</form>
+						</div>
+					</div>
+
+					<div class="modal_payment-method" id="change_pass_settings">
+						<div class="payment-method_header" data-height="237px">
+							<i class="fas fa-key"></i>
+							<div class="payment_method-title">
+								<h6>New password</h6>
+							</div>
+							<div class="angle-up"></div>
+						</div>
+						<div class="payment-method-form-container">
+							<div class="payment-data-lock">
+								<i class="fas fa-lock"></i>
+								<h6>Your data is protected. Data will not be shared with third parties.</h6>
+							</div>
+							<form action="" method="POST" class="change_pass-form" id="change_pass-form">
+								{% csrf_token %}
+								<div class="form-inline">
+									<div class="form-row">
+										<input type="password" id="old_pass" name="old_pass" value="" required/>
+										<label for="old_pass">Old password</label>
+										<label for="old_pass"><i class="far fa-eye-slash show_pass"></i></label>
+									</div>
+									<div class="form-row" id="form_row_hide"></div>
+								</div>
+								<div class="form-inline">
+									<div class="form-row">
+										<input type="password" id="new_pass" name="new_pass" value="" required/>
+										<label for="new_pass">New password</label>
+										<label for="new_pass"><i class="far fa-eye-slash show_pass"></i></label>
+									</div>
+									<div class="form-row">
+										<input type="password" id="reply_new_pass" name="reply_new_pass" value="" required />
+										<label for="reply_new_pass">New password</label>
+										<label for="reply_new_pass"><i class="far fa-eye-slash show_pass"></i></label>
+									</div>
+								</div>	
+								<div class="form-inline">
+									<input type="button" class="modal-form-btn done-btn" id="change_pass_btn" value="Done" />
+									<div class="modal-form-btn cancel-btn close_change-pass">Cancel</div>
+								</div>
+							</form>
+						</div>
+					</div>
+
+					<div class="modal_footer">
+						<img src="{% static 'landing/images/logo-color.svg' %}" style="max-width: 164px;max-height: 35px;">
+					</div>
+				</div>	
+			</div>	
+		</div>
+
+
+		<div class='modal payment-method-modal' id='payout_modal'>
+			<div class='content'>
+				<div class="modal-header">
+					<div class="modal-title">
+						<!-- <h3>Payout</h3> -->
+						<img src="{% static 'landing/images/logo-color.svg' %}" style="max-width: 164px;max-height: 35px;">
+						<div class="payout_counter_container">
+							<i class="fas fa-shopping-cart"></i>
+							${{ user.balance }}0 USD
+						</div>
+					</div>
+				</div>
+				<div class="modal-wrapper">
+						<div class="payment-method-form-container">
+							<div class="choose_payout_method">
+								Choose a payout method:
+							</div>
+							<div class="payout_method_list">
+								<div class="payout_method_list_container">
+									
+								</div>
+								<div class="add_payout_method">
+									<i>+</i>
+									<h6>Add other payout method</h6>
+								</div>
+								{% if user.balance <= 0 %}
+								<div class="payout_error_container" style="padding: 0px 20px;">
+									<div class="remove_payout_method_info" style="opacity: 1;">
+										<i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+										<h5 style="padding: 9px 0px;">You don't have enough funds to withdraw.</h5>
+									</div>
+								</div>
+								{% else %}
+								<div class="payout_data" style="padding-bottom: 0px;">
+									<div class="payout_data_background">
+										<div class="payout_data_container">
+											<h6>Amount:</h6>
+											<h5>${{ user.balance}}0 USD</h5>
+										</div>
+										<div class="payout_data_container" style="margin-top: 5px;padding-bottom: 10px;border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+											<h6>Commission:</h6>
+											<h5>$1.50 USD</h5>
+										</div>
+										<div class="payout_data_container" style="margin-top: 15px;">
+											<h6>Total:</h6>
+											<h5>${{ total_payout }}0 USD</h5>
+										</div>
+									</div>
+								</div>
+								{% endif %}
+								<div class="payout_error_container" style="padding: 0px 20px;">
+									<!-- Error -->
+								</div>
+								<div class="make_payment_container">
+									<form method="POST" id="get_payout_form">
+										{% csrf_token %}
+										<input type="button" value="Get Payout" class="modal-form-btn done-btn make_payment_btn">
+										<div class="modal-form-btn cancel-btn close_get_payout">Cancel</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal_footer">
+					<h6>
+						Copyright Linkcoin LLC
+					</h6>
+					<div class="year_lock">
+						<h5>© 2019-2020</h5>
+						<i class="fas fa-lock" aria-hidden="true"></i>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</div>
+
+
+
+	<div class="footer_panel">
+		<div class="footer_panel_list">
+			<div class="footer_panel_item">
+				<i class="fas fa-cog" aria-hidden="true"></i>
+			</div>
+			<div class="footer_panel_item">
+				<i class="fas fa-chart-bar" onclick="window.location = '#daily_chart_mob_page_link'"></i>
+			</div>
+			<div class="footer_panel_item">
+				<i class="fas fa-chart-area" onclick="window.location = '#main_chart_mob_page'"></i>
+			</div>
+			<div class="footer_panel_item">
+				<i class="fas fa-user" onclick="window.location = '#profile_mob_page_link'"></i>
+			</div>
+		</div>
+	</div>
+
+	
+	<div style="background: transparent; position: static; bottom: 0; left: 0; right: 0;" class="footer">
+		<div class="container">
+			{% include "base/footer.html" %}
+		</div>
+	</div>
+
+	<script src="{% static 'landing/js/apexcharts.js' %}"></script>
+	<script src="{% static 'landing/js/profile.js' %}"></script>
+
+
+
+	<script src="https://unpkg.com/react/umd/react.production.min.js"></script>
+	<script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
+	<script src="https://unpkg.com/prop-types/prop-types.min.js"></script>
+	<script src="https://unpkg.com/recharts/umd/Recharts.min.js"></script>
+
+	<script>
+		$(function (){
+	       $('.subs-days-chart span').text(function(index, text){
+	           text = (text / 30) * 100;
+	           $(".subs-days-chart").attr("data-percent", text);
+	       });
+
+	       $('.subs-hours-chart span').text(function(index, text){
+	           text = (text / 24) * 100;
+	           $(".subs-hours-chart").attr("data-percent", text);
+	       });
+
+	       $('.subs-minutes-chart span').text(function(index, text){
+	           text = (text / 60) * 100;
+	           $(".subs-minutes-chart").attr("data-percent", text);
+	       });
+		});
+	</script>
+	<script>
+		function get_name_browser(){
+		    // получаем данные userAgent
+		    var ua = navigator.userAgent;
+		    // с помощью регулярок проверяем наличие текста,
+		    // соответствующие тому или иному браузеру
+		    if (ua.search(/Chrome/) > 0) return 'Google Chrome';
+		    if (ua.search(/Firefox/) > 0) return 'Firefox';
+		    if (ua.search(/Opera/) > 0) return 'Opera';
+		    if (ua.search(/Safari/) > 0) return 'Safari';
+		    if (ua.search(/MSIE/) > 0) return 'Internet Explorer';
+		    // условий может быть и больше.
+		    // сейчас сделаны проверки только
+		    // для популярных браузеров
+		    return 'Не определен';
+		}
+
+		// пример использования
+		var browser = get_name_browser();
+	</script>
+	
+	<script src="{% static 'landing/js/script.js' %}"></script>
+
+	<script>
+		document.body.addEventListener("scroll", navHeight);
+	</script>
+
+	<div class="chat-icon-load">
+		<div class="close-chat" onclick="closeChat()">
+			<i class="fas fa-times" id="close_settings" aria-hidden="true"></i>
+		</div>
+		<a href="policy/support" target="_blank">
+			<div class="chat-wrap">
+				<div class="outer-wrap-icon"></div>
+				<div class="inner-wrap-icon"></div>
+			</div>
+		</a>
+	</div>
+	<script>
+		function closeChat(){
+			$(".chat-icon-load").remove()
+		}
+	</script>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-175310047-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-175310047-1');
+	</script>
+
+</body>
+</html>

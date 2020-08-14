@@ -1,0 +1,7 @@
+[client]
+database = linkcoin_db
+user = root
+host = localhost
+port = 3306
+password = 33546132
+default-character-set = utf8

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en" style="min-height: 100%; height: 100%;">
+<head>
+	<meta charset="UTF-8">
+	<title>linkcoin</title>
+
+	{% load static %}
+	<link rel="shortcut icon" href="{% static 'landing/images/pros/coin.png' %}" type="image/png">
+	<link rel="stylesheet" href="{% static 'landing/css/style.css' %}">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i&display=swap&subset=cyrillic" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
+	<link rel="stylesheet" href="{% static 'landing/css/animate.css' %}">
+	<script src="{% static 'landing/js/wow.min.js' %}"></script>
+	<link rel="stylesheet" href="{% static 'swiper/dist/css/swiper.min.css' %}">
+	<script>
+		new WOW().init();
+	</script>
+	<script src="https://kit.fontawesome.com/6beca43afb.js" crossorigin="anonymous"></script>
+</head>
+<body id="body" onscroll="navHeight()" style="min-height: 100%; height: 100%;">
+	<div class="main-wrapper" id="policy">
+		<div class="main">
+			<div id="top" class="header" style="background: #008ffb;; height: max-content!important;">
+				<header style="box-shadow:0px 2px 7px 0px rgba(197,198,195,0.73); -moz-box-shadow:0px 2px 7px 0px rgba(197,198,195,0.73);" id="header">
+						<a onclick="window.location.href = '/'" style="cursor: pointer!important;" style="z-index: 9999" class="logo">
+							<img id="header-logo" src="{% static 'landing/images/logo-blue.png' %}" alt="" style="max-width: 160px; max-height: 34px;">
+						</a>
+						<ul>
+							<li style="cursor: pointer;"><a onclick="window.location.href = '/#top'">Home</a></li>
+							<li style="cursor: pointer;"><a onclick="window.location.href = '/#prices'">Price</a></li>
+							<li style="cursor: pointer;"><a onclick="window.location.href = '/#training'">Training</a></li>
+						</ul>
+						<div class="menu">
+							<div class="login-signup">
+								{% if user.is_authenticated %}
+								<div class="header__signup">
+									<button onclick="window.location.href = '/profile'" class="header__signup-btn header-btn user-authorized">
+										{{ email }}
+									</button>
+								</div>
+								<form method="post" action="/logout">
+									<div class="header__login">
+										{% csrf_token %}
+										<button style="color: white" onclick="window.location.href = '/logout'" class="header__login-btn header-btn">
+											Logout
+										</button>
+									</div>
+								</form>
+								{% else %}
+								<div class="header__signup">
+									<button onclick="window.location.href = '/register'" class="header__signup-btn header-btn">
+										Register
+									</button>
+								</div>
+								<div class="header__login">
+									<button style="color: white;" onclick="window.location.href = '/login'" class="header__login-btn header-btn">
+										Login
+									</button>
+								</div>
+								{% endif %}
+							</div>
+							<ul>
+								<li><a onclick="window.location.href = '/#top'">Home</a></li>
+								<li><a onclick="window.location.href = '/#prices'">Price</a></li>
+								<li><a onclick="window.location.href = '/#training'">Training</a></li>
+							</ul>
+						</div>
+
+						<div style="z-index: 9999;" class="burger-menu">
+							<span style="background: rgb(0 143 251);" id="burger-span-one"></span>
+							<span style="background: rgb(0 143 251);" id="burger-span-two"></span>
+						</div>
+
+						<div class="login-signup">
+							{% if user.is_authenticated %}
+								<div class="header__signup">
+									<button onclick="window.location.href = '/profile'" class="header__signup-btn header-btn user-authorized" style="color: rgb(0, 143, 251);">
+										{{ email }}
+									</button>
+								</div>
+								<form method="post" action="/logout">
+									<div class="header__login">
+										{% csrf_token %}
+										<button style="color: rgb(0, 143, 251)" onclick="window.location.href = '/logout'" class="header__login-btn header-btn">
+											Logout
+										</button>
+									</div>
+								</form>
+							{% else %}
+								<div class="header__signup">
+									<button onclick="window.location.href = '/register'" class="header__signup-btn header-btn" style="color: rgb(0, 143, 251);">
+										Register
+									</button>
+								</div>
+								<div class="header__login">
+									<button style="color: rgb(0, 143, 251);" onclick="window.location.href = '/login'" class="header__login-btn header-btn">
+										Login
+									</button>
+								</div>
+							{% endif %}
+						</div>
+				</header>
+				<div class="container">
+
+
+
+					<header>
+						<a href="/" style="z-index: 9999" class="logo">
+							<img src="{% static 'landing/images/logo-white.png' %}" style="max-width: 164px;" alt="">
+						</a>
+
+						<div class="menu upper-menu" style="background: line-gradient(0% #008ffb, 100% black)!important;">
+							<div class="login-signup">
+								{% if user.is_authenticated %}
+									<div class="header__signup">
+										<button onclick="window.location.href = '/profile'" class="header__signup-btn header-btn user-authorized">
+											{{ email }}
+										</button>
+									</div>
+									<form method="post" action="/logout">
+										<div class="header__login">
+											{% csrf_token %}
+											<button onclick="window.location.href = '/logout'" class="header__login-btn header-btn">
+												Logout
+											</button>
+										</div>
+									</form>
+								{% else %}
+									<div class="header__signup">
+										<button onclick="window.location.href = '/register'" class="header__signup-btn header-btn">
+											Register
+										</button>
+									</div>
+									<div class="header__login">
+										<button onclick="window.location.href = '/login'" class="header__login-btn header-btn">
+											Login
+										</button>
+									</div>
+								{% endif %}
+							</div>
+							<ul>
+								<li><a onclick="window.location.href = '/#top'">Home</a></li>
+								<li><a onclick="window.location.href = '/#prices'">Price</a></li>
+								<li><a onclick="window.location.href = '/#training'">Training</a></li>
+							</ul>
+						</div>
+
+						<div style="z-index: 9999" class="burger-menu starter-burger">
+							<span id="burger-span-one"></span>
+							<span id="burger-span-two"></span>
+						</div>
+
+						<div class="login-signup">
+							{% if user.is_authenticated %}
+								<div class="header__signup">
+									<button onclick="window.location.href = '/profile'" class="header__signup-btn header-btn user-authorized"  style="color: #008ffb;">
+										{{ email }}
+									</button>
+								</div>
+								<form method="post" action="/logout">
+									<div class="header__login">
+										{% csrf_token %}
+										<button onclick="window.location.href = '/logout'" class="header__login-btn header-btn">
+											Logout
+										</button>
+									</div>
+								</form>
+							{% else %}
+								<div class="header__signup">
+									<button onclick="window.location.href = '/register'" class="header__signup-btn header-btn" style="color: #008ffb;">
+										Register
+									</button>
+								</div>
+								<div class="header__login">
+									<button onclick="window.location.href = '/login'" class="header__login-btn header-btn">
+										Login
+									</button>
+								</div>
+							{% endif %}
+						</div>
+
+					</header>
+				</div>
+			</div>
+			<div style="width: 100%; height: 100%;">
+				<div class="container" style="height: 100%;position: relative;">
+					<div id="policy_menu">
+						<div style="z-index: 9999; width: max-content; margin: auto; display: none;" class="burger-menu starter-burger open_bar">
+							<span style="width: 31px;height: 3px;border-radius: 1px;background-color: #008ffb;margin-bottom: 5px;"></span>
+							<span style="width: 31px;height: 3px;border-radius: 1px;background-color: #008ffb;margin-bottom: 5px;"></span>
+							<span style="width: 31px;height: 3px;border-radius: 1px;background-color: #008ffb;margin-bottom: 5px;"></span>
+						</div>
+						<div style="z-index: 9999; width: max-content; margin: auto; display: none;" class="burger-menu starter-burger close_bar">
+							<span style="width: 31px;height: 3px;border-radius: 1px;background-color: #008ffb;margin-bottom: 5px;"></span>
+							<span style="width: 19px;height: 3px;border-radius: 1px;background-color: #008ffb;margin-bottom: 5px;transform: translateX(-12px);"></span>
+						</div>
+						<ul>
+							<div class="policy_btn_support" onclick="window.location.href = '/policy/support'">
+								SUPPORT
+							</div>
+							<li onclick="window.location = '/policy/refund'" {% if refund %} style="background: #e5eaef!important;" {% endif %}>
+								Refund policy
+							</li>
+							<li onclick="window.location = '/policy/cookie'" {% if cookie %} style="background: #e5eaef!important;" {% endif %}>
+								Cookie policy
+							</li>
+							<li onclick="window.location = '/policy/indemnification'" {% if indemnification %} style="background: #e5eaef!important;" {% endif %}>
+								Indemnification and warranties
+							</li>
+							<li onclick="window.location = '/policy/privacy'" {% if privacy %} style="background: #e5eaef!important;" {% endif %}>
+								Privacy policy
+							</li>
+							<li onclick="window.location = '/policy/terms'" {% if terms %} style="background: #e5eaef!important;" {% endif %}>
+								Terms & Conditions
+							</li>
+							<li onclick="window.location = '/policy/questions'" {% if questions %} style="background: #e5eaef!important;" {% endif %}>
+								Frequently asked Questions
+							</li>
+							
+						</ul>
+					</div>
+					<div id="policy_main_content">
+						{% block content %}
+						
+						{% endblock %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="chat-icon-load">
+		<div class="close-chat" onclick="closeChat()">
+			<i class="fas fa-times" id="close_settings" aria-hidden="true"></i>
+		</div>
+		<a href="support">
+			<div class="chat-wrap">
+				<div class="outer-wrap-icon"></div>
+				<div class="inner-wrap-icon"></div>
+			</div>
+		</a>
+	</div>
+	<script>
+		function closeChat(){
+			$(".chat-icon-load").remove()
+		}
+	</script>
+
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<script src="{% static 'landing/js/script.js' %}"></script>
+	<script>
+		$(document).ready(function() {
+			$("#policy .open_bar").click(function(){
+				$("#policy_menu").attr("style", "width: 201px;")
+				$("#policy_menu ul").attr("style", "opacity: 1;")
+
+				$(this).attr("style", "display: none!important")
+				$(".close_bar").attr("style", "display: flex!important")
+				
+			})
+
+			$("#policy .close_bar").click(function(){
+				$("#policy_menu").attr("style", "width: 50px;")
+				$("#policy_menu ul").attr("style", "opacity: 0;")
+
+				$(this).attr("style", "display: none!important")
+				$(".open_bar").attr("style", "display: flex!important")
+			})
+		})
+	</script>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-175310047-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-175310047-1');
+	</script>
+
+	</body>
+</html>
